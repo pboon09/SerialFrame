@@ -226,14 +226,24 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 ## Step 4 — Set Up MATLAB with Waijung
 
-Create a new Simulink model and add three Waijung blocks. The header/terminator
-are entered in **hex** here (`25` and `4E`); see the
-[reference table](#header--terminator-reference).
+First install the Waijung blockset (4.1), then create a new Simulink model and add
+three Waijung blocks (4.2–4.4). The header/terminator are entered in **hex** here
+(`25` and `4E`); see the [reference table](#header--terminator-reference).
 
 > **Port name:** use the `COMx` port that your board enumerates as (e.g. `COM11`).
 > Use the same port string in all three blocks.
 
-### 4.1 Serial_Setup block
+### 4.1 Install the Waijung blockset
+
+The MATLAB side uses **Waijung 1, v18.11a**, bundled in this repo as
+`waijung18_11a.7z`.
+
+1. Extract `waijung18_11a.7z` — it produces a `waijung_18.11a` folder.
+2. In MATLAB, set the **Current Folder** to that `waijung_18.11a` folder.
+3. Run `install_waijung` in the Command Window.
+4. Open the **Simulink Library Browser** and confirm the **Waijung** library appears.
+
+### 4.2 Serial_Setup block
 
 | Parameter | Value |
 |-----------|-------|
@@ -245,7 +255,7 @@ are entered in **hex** here (`25` and `4E`); see the
 ![Waijung Serial_Setup block parameters](docs/img/waijung-serial-setup.png)
 *Serial_Setup block parameters.*
 
-### 4.2 Serial_Receive block
+### 4.3 Serial_Receive block
 
 | Parameter | Value |
 |-----------|-------|
@@ -266,7 +276,7 @@ values, then the three INT16 values.
 ![Waijung Serial_Receive block parameters](docs/img/waijung-serial-receive.png)
 *Serial_Receive block parameters.*
 
-### 4.3 Serial_Transmit block
+### 4.4 Serial_Transmit block
 
 | Parameter | Value |
 |-----------|-------|
@@ -285,7 +295,7 @@ Input ports: the three SINGLE (float) values, then the three INT16 values.
 ![Waijung Serial_Transmit block parameters](docs/img/waijung-serial-transmit.png)
 *Serial_Transmit block parameters.*
 
-### 4.4 Connect the model
+### 4.5 Connect the model
 
 Wire scopes/displays to the Serial_Receive outputs, and constants/signal
 generators to the Serial_Transmit inputs. The data order must match the STM32:
