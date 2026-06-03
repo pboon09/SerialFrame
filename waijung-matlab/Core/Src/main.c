@@ -220,7 +220,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 //		}
 //
 //		HAL_UART_Receive_DMA(&hlpuart1, RxBuffer, RX_LEN);
-		// Parse received frame
+		// Parse received frame (ignored if header/terminator mismatch)
 		SerialFrame_ParseRxFrame(&serial_frame);
 
 		// Start receiving again

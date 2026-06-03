@@ -55,7 +55,7 @@ int SerialFrame_AddRxField(SerialFrame *frame, SerialFrameDataType type, void *d
 void SerialFrame_RemoveAllFields(SerialFrame *frame);
 
 void SerialFrame_BuildTxFrame(SerialFrame *frame);
-void SerialFrame_ParseRxFrame(SerialFrame *frame);
+int SerialFrame_ParseRxFrame(SerialFrame *frame);
 void SerialFrame_Transmit(SerialFrame *frame);
 void SerialFrame_StartReceive(SerialFrame *frame);
 

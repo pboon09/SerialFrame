@@ -116,16 +116,22 @@ void SerialFrame_BuildTxFrame(SerialFrame *frame) {
     frame->tx_buffer[frame->tx_frame_size - 1] = frame->terminator;
 }
 
-/* Parse receive frame */
-void SerialFrame_ParseRxFrame(SerialFrame *frame) {
+/* Parse receive frame. Returns 0 if valid, -1 if rejected */
+int SerialFrame_ParseRxFrame(SerialFrame *frame) {
     if (frame->rx_buffer[0] != frame->header) {
-        return; // Invalid frame
+        return -1; // Invalid header
+    }
+
+    if (frame->rx_buffer[frame->rx_frame_size - 1] != frame->terminator) {
+        return -1; // Invalid terminator
     }
 
     for (int i = 0; i < frame->rx_field_count; i++) {
         SerialFrameField *field = &frame->rx_fields[i];
         memcpy(field->data_ptr, &frame->rx_buffer[field->position], field->size);
     }
+
+    return 0;
 }
 
 /* Transmit frame */
