@@ -128,9 +128,7 @@ In the `.ioc` (CubeMX) view, set up a UART/LPUART with DMA on both directions.
 
 Set LPUART1 to **Asynchronous**, baud rate **2000000**, format **8-N-1**.
 
-<!-- Add screenshot: docs/img/cubeide-pinout.png -->
-![CubeIDE pinout — LPUART1 on PA2/PA3](docs/img/cubeide-pinout.png)
-*CubeIDE Pinout & Configuration view: LPUART1 enabled, PA2 = TX, PA3 = RX.*
+![CubeIDE LPUART1 Mode and Configuration](docs/img/cubeide-lpuart1-config.png)
 
 ### 2.2 Add DMA for TX and RX
 
@@ -138,23 +136,25 @@ In the **DMA Settings** tab of LPUART1:
 - Add **RX** — Mode: **Circular**
 - Add **TX**
 
-<!-- Add screenshot: docs/img/cubeide-dma.png -->
-![CubeIDE DMA settings](docs/img/cubeide-dma.png)
-*LPUART1 DMA Settings: RX (Circular) and TX requests added.*
+![CubeIDE DMA settings — RX in Circular mode](docs/img/cubeide-dma-rx.png)
+
+![CubeIDE DMA settings — TX in Normal mode](docs/img/cubeide-dma-tx.png)
 
 ### 2.3 Enable the UART interrupt
 
 In the **NVIC Settings** tab, enable the LPUART1 **global interrupt**.
 
-<!-- Add screenshot: docs/img/cubeide-nvic.png -->
 ![CubeIDE NVIC settings](docs/img/cubeide-nvic.png)
-*NVIC Settings: LPUART1 global interrupt enabled.*
 
 ### 2.4 Add a timer for periodic transmit
 
 This example uses **TIM2** as a 1 kHz time base (prescaler 169, period 999 on a
 170 MHz clock → 1 ms). Enable its interrupt so `HAL_TIM_PeriodElapsedCallback`
 fires every millisecond. Adjust the period to change the transmit rate.
+
+![CubeIDE TIM2 Mode and Configuration](docs/img/cubeide-tim2-config.png)
+
+![CubeIDE TIM2 NVIC settings](docs/img/cubeide-tim2-nvic.png)
 
 ### 2.5 Generate code
 
