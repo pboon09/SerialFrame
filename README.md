@@ -252,7 +252,6 @@ The MATLAB side uses **Waijung 1, v18.11a**, bundled in this repo as
 | Config | 8-None-1 |
 
 ![Waijung Serial_Setup block parameters](docs/img/waijung-serial-setup.jpg)
-*Serial_Setup block parameters: Baud 2000000, 8 data bits, no parity, 1 stop bit.*
 
 ### 4.3 Serial_Receive block
 
@@ -272,7 +271,6 @@ Output ports: the first is a **READY** signal, then the three SINGLE (float)
 values, then the three INT16 values.
 
 ![Waijung Serial_Receive block parameters](docs/img/waijung-serial-receive.jpg)
-*Serial_Receive block parameters: Binary packet, header `25`, terminator `4E`, 3 SINGLE data ports.*
 
 ### 4.4 Serial_Transmit block
 
@@ -290,7 +288,6 @@ values, then the three INT16 values.
 Input ports: the three SINGLE (float) values, then the three INT16 values.
 
 ![Waijung Serial_Transmit block parameters](docs/img/waijung-serial-transmit.jpg)
-*Serial_Transmit block parameters: Binary packet, header `25`, terminator `4E`, 3 SINGLE data ports.*
 
 ### 4.5 Connect the model
 
@@ -299,7 +296,6 @@ generators to the Serial_Transmit inputs. The data order must match the STM32:
 3 floats then 3 int16s in each direction.
 
 ![Completed Simulink model](docs/img/simulink-model.jpg)
-*Completed Simulink model: Serial_Setup, Serial_Receive (to displays), Serial_Transmit (driven by constants 1–6 through type-convert blocks).*
 
 ## Step 5 — Run It
 
@@ -307,15 +303,12 @@ Flash the STM32, then press **Run** in Simulink. You should see live values
 flowing in both directions.
 
 ![Simulink model running with live received data](docs/img/simulink-running.jpg)
-*Model running: the displays show the floats and int16s received from the STM32
-(12.25, 66.57, 3.14, 1234, 4567, 11), while the constants 1–6 are transmitted back.*
 
 On the STM32 side you can confirm the same link in the CubeIDE debugger's **Live
 Expressions** view — the transmitted `dum_*` values match the Simulink displays,
 and the received `rev_*` values match the constants 1–6 sent from Simulink.
 
 ![CubeIDE Live Expressions showing TX and RX values](docs/img/cubeide-live-expressions.jpg)
-*CubeIDE Live Expressions: `dum_*` (sent to MATLAB) and `rev_*` (received from MATLAB).*
 
 **Notes**
 - The READY output of Serial_Receive should be high when frames are arriving.
